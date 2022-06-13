@@ -5,9 +5,9 @@ import config from "../config";
 const worker = async () => {
   try {
     await AmqpInstance.initialize(config.RABBIT_MQ_URL);
-  } catch(error: unknown) {
+  } catch (error: unknown) {
     errorHandler(error);
   }
-}
+};
 
 export default worker;

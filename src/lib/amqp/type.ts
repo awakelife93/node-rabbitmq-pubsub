@@ -15,8 +15,14 @@ export type SocketOptions = {
       consumer_cancel_notify: boolean;
       "connection.blocked": boolean;
       authentication_failure_close: boolean;
-    }
-  }
-}
+    };
+  };
+};
 
-export type ExchangeType = 'direct' | 'topic' | 'headers' | 'fanout' | 'match' | string;
+export type ExchangeType =
+  | "direct"
+  | "topic"
+  | "headers"
+  | "fanout"
+  | "match"
+  | string;

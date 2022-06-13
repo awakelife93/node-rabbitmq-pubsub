@@ -14,7 +14,7 @@ class AmqpInstance {
     if (_.isNull(this.amqp)) {
       throw new Error(ErrorStatus.IS_EMPTY_AMQP);
     }
-    
+
     return this.amqp;
   }
 }
