@@ -9,6 +9,7 @@
 * dotenv
 * nodemon
 * amqplib
+* docker-compose
 #
 ### 내용
 #
