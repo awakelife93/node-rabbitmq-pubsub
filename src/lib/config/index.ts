@@ -11,7 +11,7 @@ const config: Config = {
   EXCHANGE: process.env.EXCHANGE ?? "deleteTokens",
   QUEUE_NAME: process.env.QUEUE_NAME ?? "deleteTokens",
   EXCHANGE_TYPE: process.env.EXCHANGE_TYPE ?? "direct",
-  RABBITMQ_URL: process.env.RABBITMQ_URL ?? "",
+  RABBITMQ_URL: process.env.RABBITMQ_URL ?? "amqp://localhost:5673",
 };
 
 export default config;

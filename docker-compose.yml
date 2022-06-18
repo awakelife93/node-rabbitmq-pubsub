@@ -22,7 +22,7 @@ services:
     command: sh -c '/bin/wait-for-it.sh rabbitmq:5672 --timeout=30 -- npm run dockerStart'
     environment:
       NODE_ENV: development
-      AMQP_URL: amqp://guest:guest@rabbitmq:5672
+      RABBITMQ_URL: amqp://guest:guest@rabbitmq:5672
     networks:
       - rabbitmq_nodejs
 networks:
