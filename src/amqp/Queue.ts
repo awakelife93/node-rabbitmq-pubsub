@@ -1,4 +1,4 @@
-import { Channel, Connection, Options, Replies } from "amqplib";
+import { Channel, Options, Replies } from "amqplib";
 import _ from "lodash";
 import { ErrorStatus } from "../common/enum/error";
 import config from "../config";
@@ -6,20 +6,25 @@ import AmqpInstance from "./AmqpInstance";
 import { ExchangeType } from "./type";
 
 class Queue {
-  private readonly amqp: Connection = AmqpInstance.instance;
   private channel: Channel | null = null;
-
-  constructor() {
-    const queue = this.initialize(config.QUEUE_NAME);
-    console.log(`Queue initialized ===========> ${queue}`);
+  
+  async initialize(): Promise<void> {
+    this.channel = await AmqpInstance.instance.createChannel();
+    
+    // * listener를 등록 해야만... error handling이 가능하다. 등록 안하면 process kill
+    this.channel.on('error', (error) => {
+      // ...
+    });
   }
 
-  private async initialize(
+  async assertQueue(
     queueName: string,
     options: Options.AssertQueue = {}
   ): Promise<Replies.AssertQueue> {
-    this.channel = await this.amqp.createChannel();
-
+    if (_.isNull(this.channel)) {
+      throw new Error(ErrorStatus.IS_EMPTY_CHANNEL);
+    }
+    
     return await this.channel.assertQueue(queueName, {
       ...options,
       durable: true, // * 서버가 종료될 때 queue가 소멸 되는 것을 방지
@@ -66,6 +71,22 @@ class Queue {
     }
 
     return await this.channel.purgeQueue(queueName);
+  }
+
+  async checkQueue(queueName: string): Promise<Replies.AssertQueue> {
+    if (_.isNull(this.channel)) {
+      throw (ErrorStatus.IS_EMPTY_CHANNEL);
+    }
+
+    return await this.channel.checkQueue(queueName);
+  }
+
+  async checkExchange(exchange: string): Promise<Replies.Empty> {
+    if (_.isNull(this.channel)) {
+      throw (ErrorStatus.IS_EMPTY_CHANNEL);
+    }
+
+    return await this.channel.checkExchange(exchange);
   }
 
   get queue(): Channel {

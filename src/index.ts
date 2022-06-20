@@ -1,4 +1,4 @@
 import "module-alias/register";
-import worker from "./lib/worker";
+import worker from "./worker";
 
 worker();

@@ -1,17 +1,16 @@
-import { Channel, Options } from "amqplib";
+import { Options } from "amqplib";
 import _ from "lodash";
 import { ErrorStatus } from "../common/enum/error";
+import { convertStringToBuffer } from "../utils/convert";
 import Queue from "./Queue";
 
 class Producer {
-  private readonly queue: Channel = Queue.queue;
-
   private generateMessage(message: string): Buffer {
     if (_.isEmpty(message)) {
       throw new Error(ErrorStatus.IS_EMPTY_MESSAGE);
     }
 
-    return Buffer.from(message);
+    return convertStringToBuffer(message);
   }
 
   private generateOptions(options: Options.Publish): Options.Publish {
@@ -28,7 +27,7 @@ class Producer {
     message: string,
     options: Options.Publish = {}
   ): boolean {
-    return this.queue.publish(
+    return Queue.queue.publish(
       exchange,
       routingKey,
       this.generateMessage(message),
@@ -42,7 +41,7 @@ class Producer {
     message: string,
     options: Options.Publish = {}
   ): boolean {
-    return this.queue.sendToQueue(
+    return Queue.queue.sendToQueue(
       queueName,
       this.generateMessage(message),
       this.generateOptions(options)

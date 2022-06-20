@@ -6,7 +6,7 @@ import { SocketOptions } from "./type";
 class AmqpInstance {
   private amqp: Connection | null = null;
 
-  async initialize(url: string, socketOptions?: SocketOptions) {
+  async initialize(url: string, socketOptions?: SocketOptions): Promise<void> {
     this.amqp = await amqplib.connect(url, socketOptions);
   }
 
