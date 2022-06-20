@@ -12,7 +12,8 @@
 * docker-compose
 #
 ### 내용
-#
+1. localhost:15673 (admin)
+* guest / guest 접속 (개발 환경)
 ### 실행
 1. rabbitmq + worker 같이 띄울 때
 * docker-compose -f docker-compose-full.yml up 
