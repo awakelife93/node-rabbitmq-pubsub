@@ -11,7 +11,7 @@ const publishTestMessages = (): void => {
 
   sampleMessages.forEach(async (message: string, index: number) => {
     console.log(await Producer.sendMessage(config.QUEUE_NAME, message));
-  })
+  });
 };
 
 export default producer;

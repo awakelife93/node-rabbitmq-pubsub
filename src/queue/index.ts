@@ -5,15 +5,15 @@ import config from "../config";
 
 const queueController = async (): Promise<Replies.AssertQueue> => {
   return await initialize();
-}
+};
 
 const initialize = async (): Promise<Replies.AssertQueue> => {
   try {
     await Queue.initialize();
     return await Queue.checkQueue(config.QUEUE_NAME);
-  } catch(error: unknown) {
+  } catch (error: unknown) {
     const _error = getErrorItem(error);
-    
+
     // ! queue가 없다.
     if (_error.message.match("NOT_FOUND")) {
       return await createQueue(config.QUEUE_NAME);

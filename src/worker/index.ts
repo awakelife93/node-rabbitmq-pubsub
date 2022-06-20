@@ -11,15 +11,16 @@ const worker = async () => {
     await AmqpInstance.initialize(config.RABBITMQ_URL);
 
     const { messageCount, consumerCount, queue } = await queueController();
-    console.log(`Queue Info ===> name: ${queue}, messageCount: ${messageCount}, consumerCount: ${consumerCount}`);
+    console.log(
+      `Queue Info ===> name: ${queue}, messageCount: ${messageCount}, consumerCount: ${consumerCount}`
+    );
 
     if (messageCount < 1 && config.IS_TEST_MESSAGES) {
       await producer();
       console.log("Generate Test Sample Messages");
     }
-    
+
     await broker();
-    
   } catch (error: unknown) {
     errorHandler(error);
   }

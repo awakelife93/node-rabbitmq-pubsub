@@ -7,12 +7,12 @@ import { ExchangeType } from "./type";
 
 class Queue {
   private channel: Channel | null = null;
-  
+
   async initialize(): Promise<void> {
     this.channel = await AmqpInstance.instance.createChannel();
-    
+
     // * listener를 등록 해야만... error handling이 가능하다. 등록 안하면 process kill
-    this.channel.on('error', (error) => {
+    this.channel.on("error", (error) => {
       // ...
     });
   }
@@ -24,7 +24,7 @@ class Queue {
     if (_.isNull(this.channel)) {
       throw new Error(ErrorStatus.IS_EMPTY_CHANNEL);
     }
-    
+
     return await this.channel.assertQueue(queueName, {
       ...options,
       durable: true, // * 서버가 종료될 때 queue가 소멸 되는 것을 방지
@@ -75,7 +75,7 @@ class Queue {
 
   async checkQueue(queueName: string): Promise<Replies.AssertQueue> {
     if (_.isNull(this.channel)) {
-      throw (ErrorStatus.IS_EMPTY_CHANNEL);
+      throw ErrorStatus.IS_EMPTY_CHANNEL;
     }
 
     return await this.channel.checkQueue(queueName);
@@ -83,7 +83,7 @@ class Queue {
 
   async checkExchange(exchange: string): Promise<Replies.Empty> {
     if (_.isNull(this.channel)) {
-      throw (ErrorStatus.IS_EMPTY_CHANNEL);
+      throw ErrorStatus.IS_EMPTY_CHANNEL;
     }
 
     return await this.channel.checkExchange(exchange);
