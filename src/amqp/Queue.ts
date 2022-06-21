@@ -28,6 +28,7 @@ class Queue {
     return await this.channel.assertQueue(queueName, {
       ...options,
       durable: true, // * 서버가 종료될 때 queue가 소멸 되는 것을 방지
+      deadLetterExchange: config.DEAD_LETTER_EXCHANGE // * Dead Letter Exchange 설정
     });
   }
 
