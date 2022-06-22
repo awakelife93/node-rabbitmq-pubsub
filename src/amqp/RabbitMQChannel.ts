@@ -1,11 +1,11 @@
 import { Channel, Options, Replies } from "amqplib";
 import _ from "lodash";
 import { ErrorStatus } from "../common/enum/error";
-import config from "../config";
 import AmqpInstance from "./AmqpInstance";
 import { ExchangeType } from "./type";
 
-class Queue {
+class RabbitMQChannel {
+  
   private channel: Channel | null = null;
 
   async initialize(): Promise<void> {
@@ -25,17 +25,13 @@ class Queue {
       throw new Error(ErrorStatus.IS_EMPTY_CHANNEL);
     }
 
-    return await this.channel.assertQueue(queueName, {
-      ...options,
-      durable: true, // * 서버가 종료될 때 queue가 소멸 되는 것을 방지
-      deadLetterExchange: config.DEAD_LETTER_EXCHANGE, // * Dead Letter Exchange 설정
-    });
+    return await this.channel.assertQueue(queueName, options);
   }
 
   async assertExchange(
     exchange: string,
-    type: ExchangeType = config.EXCHANGE_TYPE,
-    options?: Options.AssertExchange
+    type: ExchangeType,
+    options: Options.AssertExchange = {}
   ): Promise<Replies.AssertExchange> {
     if (_.isNull(this.channel)) {
       throw new Error(ErrorStatus.IS_EMPTY_CHANNEL);
@@ -90,6 +86,22 @@ class Queue {
     return await this.channel.checkExchange(exchange);
   }
 
+  async bindExchange(destination: string, source: string, routingKey: string, args?: any): Promise<Replies.Empty> {
+    if (_.isNull(this.channel)) {
+      throw ErrorStatus.IS_EMPTY_CHANNEL;
+    }
+
+    return await this.channel.bindExchange(destination, source, routingKey, args);
+  }
+
+  async bindQueue(queueName: string, exchange: string, routingKey: string, args?: any): Promise<Replies.Empty> {
+    if (_.isNull(this.channel)) {
+      throw ErrorStatus.IS_EMPTY_CHANNEL;
+    }
+
+    return await this.channel.bindQueue(queueName, exchange, routingKey, args);
+  }
+
   get queue(): Channel {
     if (_.isNull(this.channel)) {
       throw new Error(ErrorStatus.IS_EMPTY_CHANNEL);
@@ -99,4 +111,4 @@ class Queue {
   }
 }
 
-export default new Queue();
+export default new RabbitMQChannel();

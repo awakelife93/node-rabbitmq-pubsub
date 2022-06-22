@@ -1,8 +1,9 @@
 import { ConsumeMessage, GetMessage, Options } from "amqplib";
 import config from "../config";
-import Queue from "./Queue";
+import RabbitMQChannel from "./RabbitMQChannel";
 
 class Consumer {
+  
   consume(
     queueName: string,
     onMessage: (msg: ConsumeMessage | null) => void,
@@ -10,7 +11,7 @@ class Consumer {
       noAck: config.IS_ACK,
     }
   ) {
-    Queue.queue.consume(queueName, onMessage, options);
+    RabbitMQChannel.queue.consume(queueName, onMessage, options);
   }
 
   async get(
@@ -19,7 +20,7 @@ class Consumer {
       noAck: config.IS_ACK,
     }
   ): Promise<GetMessage | false> {
-    return await Queue.queue.get(queueName, options);
+    return await RabbitMQChannel.queue.get(queueName, options);
   }
 }
 

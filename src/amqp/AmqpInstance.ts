@@ -4,6 +4,7 @@ import { ErrorStatus } from "../common/enum/error";
 import { SocketOptions } from "./type";
 
 class AmqpInstance {
+  
   private amqp: Connection | null = null;
 
   async initialize(url: string, socketOptions?: SocketOptions): Promise<void> {

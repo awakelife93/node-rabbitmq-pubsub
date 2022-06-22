@@ -2,9 +2,10 @@ import { Options } from "amqplib";
 import _ from "lodash";
 import { ErrorStatus } from "../common/enum/error";
 import { convertStringToBuffer } from "../utils/convert";
-import Queue from "./Queue";
+import RabbitMQChannel from "./RabbitMQChannel";
 
 class Producer {
+  
   private generateMessage(message: string): Buffer {
     if (_.isEmpty(message)) {
       throw new Error(ErrorStatus.IS_EMPTY_MESSAGE);
@@ -20,14 +21,14 @@ class Producer {
     };
   }
 
-  // * Puts a message into a queue through an exchange.
+  // * Puts a message into a queue through an exchange route.
   publishMessage(
     exchange: string,
     routingKey: string,
     message: string,
     options: Options.Publish = {}
   ): boolean {
-    return Queue.queue.publish(
+    return RabbitMQChannel.queue.publish(
       exchange,
       routingKey,
       this.generateMessage(message),
@@ -41,7 +42,7 @@ class Producer {
     message: string,
     options: Options.Publish = {}
   ): boolean {
-    return Queue.queue.sendToQueue(
+    return RabbitMQChannel.queue.sendToQueue(
       queueName,
       this.generateMessage(message),
       this.generateOptions(options)
