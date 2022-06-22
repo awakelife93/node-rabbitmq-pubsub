@@ -1,14 +1,15 @@
+import { GenerateMessageItem } from "@/common/type";
 import Consumer from "../amqp/Consumer";
 import config from "../config";
-import { generateMessage } from "./preprocessor";
+import { generateMessageItem } from "./preprocessor";
 
-const consumer = async (): Promise<string> => {
+const consumer = async (): Promise<GenerateMessageItem> => {
   return await getMessage();
 };
 
-const getMessage = async () => {
+const getMessage = async (): Promise<GenerateMessageItem> => {
   const messageItem = await Consumer.get(config.DEFAULT_QUEUE_NAME);
-  return generateMessage(messageItem);
+  return generateMessageItem(messageItem);
 };
 
 export default consumer;

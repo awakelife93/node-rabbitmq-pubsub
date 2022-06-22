@@ -1,16 +1,25 @@
+import { GenerateMessageItem } from "@/common/type";
 import { GetMessage } from "amqplib";
 import _ from "lodash";
 import { convertBufferToString } from "../utils/convert";
 
-export const generateMessage = (messageItem: GetMessage | false): string => {
+export const generateMessageItem = (
+  messageItem: GetMessage | false
+): GenerateMessageItem => {
   let message = "";
+  let messageCount = 0;
 
   if (messageItem) {
     message = convertBufferToString(messageItem.content);
+    messageCount = messageItem.fields.messageCount;
+
     checkDeadLetter(messageItem);
   }
 
-  return message;
+  return {
+    message,
+    messageCount,
+  };
 };
 
 export const checkDeadLetter = (messageItem: GetMessage) => {
