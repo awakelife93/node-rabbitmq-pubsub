@@ -5,7 +5,6 @@ import AmqpInstance from "./AmqpInstance";
 import { ExchangeType } from "./type";
 
 class RabbitMQChannel {
-  
   private channel: Channel | null = null;
 
   async initialize(): Promise<void> {
@@ -86,15 +85,30 @@ class RabbitMQChannel {
     return await this.channel.checkExchange(exchange);
   }
 
-  async bindExchange(destination: string, source: string, routingKey: string, args?: any): Promise<Replies.Empty> {
+  async bindExchange(
+    destination: string,
+    source: string,
+    routingKey: string,
+    args?: any
+  ): Promise<Replies.Empty> {
     if (_.isNull(this.channel)) {
       throw ErrorStatus.IS_EMPTY_CHANNEL;
     }
 
-    return await this.channel.bindExchange(destination, source, routingKey, args);
+    return await this.channel.bindExchange(
+      destination,
+      source,
+      routingKey,
+      args
+    );
   }
 
-  async bindQueue(queueName: string, exchange: string, routingKey: string, args?: any): Promise<Replies.Empty> {
+  async bindQueue(
+    queueName: string,
+    exchange: string,
+    routingKey: string,
+    args?: any
+  ): Promise<Replies.Empty> {
     if (_.isNull(this.channel)) {
       throw ErrorStatus.IS_EMPTY_CHANNEL;
     }

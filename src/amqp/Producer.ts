@@ -5,7 +5,6 @@ import { convertStringToBuffer } from "../utils/convert";
 import RabbitMQChannel from "./RabbitMQChannel";
 
 class Producer {
-  
   private generateMessage(message: string): Buffer {
     if (_.isEmpty(message)) {
       throw new Error(ErrorStatus.IS_EMPTY_MESSAGE);

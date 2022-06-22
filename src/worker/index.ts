@@ -9,7 +9,9 @@ import config from "../config";
 import queueController from "../queue";
 
 const createSampleMessageData = async () => {
-  const messageCount = await (await RabbitMQChannel.checkQueue(config.DEFAULT_QUEUE_NAME)).messageCount;
+  const messageCount = await (
+    await RabbitMQChannel.checkQueue(config.DEFAULT_QUEUE_NAME)
+  ).messageCount;
 
   if (messageCount < 1) {
     await producer();
@@ -24,13 +26,13 @@ const worker = async () => {
     await AmqpInstance.initialize(config.RABBITMQ_URL);
 
     await RabbitMQChannel.initialize();
-    
+
     await exchangeController();
-    
+
     await queueController();
 
     await bindController();
-    
+
     if (config.IS_TEST_MESSAGES) {
       await createSampleMessageData();
     }

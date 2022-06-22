@@ -3,7 +3,6 @@ import config from "../config";
 import RabbitMQChannel from "./RabbitMQChannel";
 
 class Consumer {
-  
   consume(
     queueName: string,
     onMessage: (msg: ConsumeMessage | null) => void,
