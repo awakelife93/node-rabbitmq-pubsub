@@ -7,7 +7,7 @@ const consumer = async (): Promise<string> => {
 };
 
 const getMessage = async () => {
-  const messageItem = await Consumer.get(config.QUEUE_NAME);
+  const messageItem = await Consumer.get(config.DEFAULT_QUEUE_NAME);
   return generateMessage(messageItem);
 };
 

@@ -10,7 +10,10 @@ const publishTestMessages = (): void => {
   const sampleMessages = generateMessage();
 
   sampleMessages.forEach(async (message: string, index: number) => {
-    await Producer.sendMessage(config.QUEUE_NAME, message);
+    // * deleteTokens Queue에 들어간다.
+    await Producer.sendMessage(config.DEFAULT_QUEUE_NAME, message);
+    // * defaultMessageQueue Queue에 들어간다.
+    await Producer.publishMessage(config.SEND_MESSAGE_EXCHANGE, "", message);
   });
 };
 
