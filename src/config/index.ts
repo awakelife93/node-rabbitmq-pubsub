@@ -27,10 +27,8 @@ const config: Config = {
   RABBITMQ_URL: process.env.RABBITMQ_URL ?? "amqp://localhost:5673",
   IS_TEST_MESSAGES: process.env.IS_TEST_MESSAGES
     ? process.env.IS_TEST_MESSAGES === "true"
-      ? true
-      : false
     : true,
-  IS_ACK: process.env.IS_ACK === "true" ? true : false,
+  IS_ACK: process.env.IS_ACK === "true",
 };
 
 export default config;
