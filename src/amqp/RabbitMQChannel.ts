@@ -71,7 +71,7 @@ class RabbitMQChannel {
 
   async checkQueue(queueName: string): Promise<Replies.AssertQueue> {
     if (_.isNull(this.channel)) {
-      throw ErrorStatus.IS_EMPTY_CHANNEL;
+      throw new Error(ErrorStatus.IS_EMPTY_CHANNEL);
     }
 
     return await this.channel.checkQueue(queueName);
@@ -79,7 +79,7 @@ class RabbitMQChannel {
 
   async checkExchange(exchange: string): Promise<Replies.Empty> {
     if (_.isNull(this.channel)) {
-      throw ErrorStatus.IS_EMPTY_CHANNEL;
+      throw new Error(ErrorStatus.IS_EMPTY_CHANNEL);
     }
 
     return await this.channel.checkExchange(exchange);
@@ -92,7 +92,7 @@ class RabbitMQChannel {
     args?: any
   ): Promise<Replies.Empty> {
     if (_.isNull(this.channel)) {
-      throw ErrorStatus.IS_EMPTY_CHANNEL;
+      throw new Error(ErrorStatus.IS_EMPTY_CHANNEL);
     }
 
     return await this.channel.bindExchange(
@@ -110,7 +110,7 @@ class RabbitMQChannel {
     args?: any
   ): Promise<Replies.Empty> {
     if (_.isNull(this.channel)) {
-      throw ErrorStatus.IS_EMPTY_CHANNEL;
+      throw new Error(ErrorStatus.IS_EMPTY_CHANNEL);
     }
 
     return await this.channel.bindQueue(queueName, exchange, routingKey, args);
