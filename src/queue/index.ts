@@ -15,7 +15,11 @@ const initialize = async (): Promise<Replies.AssertQueue[]> => {
   );
   queues.push(deadLetterQueue);
   console.log(
-    `Queue Info ===> name: ${deadLetterQueue.queue}, messageCount: ${deadLetterQueue.messageCount}, consumerCount: ${deadLetterQueue.consumerCount}`
+    `Queue Info ===>
+      name: ${deadLetterQueue.queue},
+      messageCount: ${deadLetterQueue.messageCount},
+      consumerCount: ${deadLetterQueue.consumerCount}
+    `
   );
 
   // * create service queue
@@ -24,7 +28,11 @@ const initialize = async (): Promise<Replies.AssertQueue[]> => {
   );
   queues.push(defaultQueue);
   console.log(
-    `Queue Info ===> name: ${defaultQueue.queue}, messageCount: ${defaultQueue.messageCount}, consumerCount: ${defaultQueue.consumerCount}`
+    `Queue Info ===>
+      name: ${defaultQueue.queue},
+      messageCount: ${defaultQueue.messageCount},
+      consumerCount: ${defaultQueue.consumerCount}
+    `
   );
 
   // * create default queue (테스트용 / exchange로 메세지 쏘기 위해서...)
@@ -32,7 +40,11 @@ const initialize = async (): Promise<Replies.AssertQueue[]> => {
     await createQueue(config.EXCHANGE_SEND_MESSAGE_QUEUE_NAME);
   queues.push(defaultExchangeMessageSendQueue);
   console.log(
-    `Queue Info ===> name: ${defaultExchangeMessageSendQueue.queue}, messageCount: ${defaultExchangeMessageSendQueue.messageCount}, consumerCount: ${defaultExchangeMessageSendQueue.consumerCount}`
+    `Queue Info ===>
+      name: ${defaultExchangeMessageSendQueue.queue}, 
+      messageCount: ${defaultExchangeMessageSendQueue.messageCount}, 
+      consumerCount: ${defaultExchangeMessageSendQueue.consumerCount}
+    `
   );
 
   return queues;
