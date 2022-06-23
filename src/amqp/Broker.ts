@@ -13,7 +13,7 @@ class Broker {
     if (messageCount < 1) {
       const delaySeconds = convertMsToSeconds(this.delayTime);
       console.log(
-        `Message Queue has Non Message So, Set Delay ${delaySeconds} second`,
+        `Message Queue has Non Message So, Set Delay ${delaySeconds} second`
       );
     } else {
       console.log(`Number of Messages Remaining = ${messageCount}`);
@@ -24,7 +24,7 @@ class Broker {
   async start(): Promise<void> {
     if (_.isNull(this.intervalId)) {
       await this.work();
-    
+
       this.intervalId = setInterval(async () => {
         await this.work();
       }, this.pollingTime);
@@ -56,7 +56,7 @@ class Broker {
   changeDelayTime(ms: number): void {
     this.delayTime = ms;
   }
-  
+
   sender(message: string): void {
     // * message를 로직으로 소비하는 구간...
     console.log(`message ===> ${message}`);
