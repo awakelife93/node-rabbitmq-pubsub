@@ -10,6 +10,7 @@ export const generateMessageItem = (
   let messageCount = 0;
 
   if (messageItem) {
+    console.log(`Generating ${JSON.stringify(messageItem)} item to message`);
     message = convertBufferToString(messageItem.content);
     messageCount = messageItem.fields.messageCount;
 
