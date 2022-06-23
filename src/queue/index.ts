@@ -58,4 +58,8 @@ const createQueue = async (queueName: string): Promise<Replies.AssertQueue> => {
   });
 };
 
+export const getQueue = async (queueName: string): Promise<Replies.AssertQueue> => {
+  return await RabbitMQChannel.checkQueue(queueName);
+};
+
 export default queueController;

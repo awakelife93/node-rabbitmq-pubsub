@@ -1,5 +1,5 @@
-import RabbitMQChannel from "@/amqp/RabbitMQChannel";
 import { getErrorItem } from "@/utils/error";
+import { getQueue } from ".";
 
 export const getQueueMessageCount = async (
   queueName: string
@@ -7,9 +7,8 @@ export const getQueueMessageCount = async (
   let messageCount = 0;
 
   try {
-    messageCount = await (
-      await RabbitMQChannel.checkQueue(queueName)
-    ).messageCount;
+    const queue = await getQueue(queueName);
+    messageCount = queue.messageCount;
   } catch (error: unknown) {
     const _error = getErrorItem(error);
 
