@@ -22,7 +22,7 @@ const initialize = async (): Promise<Replies.AssertQueue[]> => {
     `
   );
 
-  // * create service queue
+  // * create default queue
   const defaultQueue: Replies.AssertQueue = await createQueue(
     config.DEFAULT_QUEUE_NAME
   );
@@ -35,7 +35,7 @@ const initialize = async (): Promise<Replies.AssertQueue[]> => {
     `
   );
 
-  // * create default queue (테스트용 / exchange로 메세지 쏘기 위해서...)
+  // * create default exchange bind queue (테스트용 / exchange로 메세지 쏘기 위해서...)
   const defaultExchangeMessageSendQueue: Replies.AssertQueue =
     await createQueue(config.EXCHANGE_SEND_MESSAGE_QUEUE_NAME);
   queues.push(defaultExchangeMessageSendQueue);
