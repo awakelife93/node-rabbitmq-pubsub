@@ -106,7 +106,7 @@ class RabbitMQChannel {
   async bindQueue(
     queueName: string,
     exchange: string,
-    routingKey: string,
+    routingKey: string = "",
     args?: any
   ): Promise<Replies.Empty> {
     if (_.isNull(this.channel)) {

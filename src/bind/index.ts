@@ -11,14 +11,12 @@ const bindQueue = async () => {
   await RabbitMQChannel.bindQueue(
     config.DEFAULT_QUEUE_NAME,
     config.DEAD_LETTER_EXCHANGE,
-    ""
   );
 
   // * Default Send Message Exchange <=> Default Message Queue (테스트용 / exchange로 메세지 쏘기 위해서...)
   await RabbitMQChannel.bindQueue(
     config.EXCHANGE_SEND_MESSAGE_QUEUE_NAME,
     config.SEND_MESSAGE_EXCHANGE,
-    ""
   );
 };
 
