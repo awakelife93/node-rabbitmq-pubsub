@@ -3,6 +3,7 @@ import _ from "lodash";
 import consumer from "../consumer";
 
 // todo: intervalId, time 변수들 공통 관리
+// todo: 해당 스크립트 전반적으로 분리 해낼 것
 let intervalId: NodeJS.Timer | null = null;
 const broker = async (): Promise<void> => {
   await start();
