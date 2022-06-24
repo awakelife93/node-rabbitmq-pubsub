@@ -1,6 +1,6 @@
-import Broker from "@/amqp/Broker";
 import RabbitMQChannel from "@/amqp/RabbitMQChannel";
 import bindController from "@/bind";
+import broker from "@/broker";
 import exchangeController from "@/exchange";
 import producer from "@/producer";
 import { getQueueMessageCount } from "@/queue/preprocessor";
@@ -36,7 +36,7 @@ const worker = async () => {
       await createSampleMessageData();
     }
 
-    await Broker.start();
+    await broker();
   } catch (error: unknown) {
     errorHandler(error);
   }
