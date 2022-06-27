@@ -6,14 +6,11 @@ const queueController = async (): Promise<void> => {
   await initialize();
 };
 
-const initialize = async (): Promise<Replies.AssertQueue[]> => {
-  let queues: Replies.AssertQueue[] = [];
-
+const initialize = async (): Promise<void> => {
   // * create dead letter queue
   const deadLetterQueue: Replies.AssertQueue = await createQueue(
     config.DEAD_LETTER_QUEUE_NAME
   );
-  queues.push(deadLetterQueue);
   console.log(
     `Queue Info ===>
       name: ${deadLetterQueue.queue},
@@ -26,7 +23,6 @@ const initialize = async (): Promise<Replies.AssertQueue[]> => {
   const defaultQueue: Replies.AssertQueue = await createQueue(
     config.DEFAULT_QUEUE_NAME
   );
-  queues.push(defaultQueue);
   console.log(
     `Queue Info ===>
       name: ${defaultQueue.queue},
@@ -38,7 +34,6 @@ const initialize = async (): Promise<Replies.AssertQueue[]> => {
   // * create default exchange bind queue (테스트용 / exchange로 메세지 쏘기 위해서...)
   const defaultExchangeMessageSendQueue: Replies.AssertQueue =
     await createQueue(config.EXCHANGE_SEND_MESSAGE_QUEUE_NAME);
-  queues.push(defaultExchangeMessageSendQueue);
   console.log(
     `Queue Info ===>
       name: ${defaultExchangeMessageSendQueue.queue}, 
@@ -46,8 +41,6 @@ const initialize = async (): Promise<Replies.AssertQueue[]> => {
       consumerCount: ${defaultExchangeMessageSendQueue.consumerCount}
     `
   );
-
-  return queues;
 };
 
 const createQueue = async (queueName: string): Promise<Replies.AssertQueue> => {
