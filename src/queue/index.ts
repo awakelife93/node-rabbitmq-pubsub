@@ -57,4 +57,18 @@ export const getQueue = async (
   return await RabbitMQChannel.checkQueue(queueName);
 };
 
+export const deleteQueue = async (
+  queueName: string
+): Promise<Replies.DeleteQueue> => {
+  return await RabbitMQChannel.deleteQueue(queueName);
+};
+
+export const deleteQueues = (
+  queueNames: string[]
+): void => {
+  queueNames.forEach(async (queueName: string) => {
+    await deleteQueue(queueName);
+  });
+};
+
 export default queueController;

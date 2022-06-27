@@ -11,6 +11,7 @@ type Config = {
   EXCHANGE_TYPE: ExchangeType;
   IS_TEST_MESSAGES: boolean;
   IS_ACK: boolean;
+  IS_RESET_RESOURCES: boolean;
 };
 
 const config: Config = {
@@ -29,6 +30,7 @@ const config: Config = {
     ? process.env.IS_TEST_MESSAGES === "true"
     : true,
   IS_ACK: process.env.IS_ACK === "true",
+  IS_RESET_RESOURCES: process.env.IS_RESET_RESOURCES === "true",
 };
 
 export default config;
