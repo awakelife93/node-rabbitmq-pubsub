@@ -63,9 +63,7 @@ export const deleteQueue = async (
   return await RabbitMQChannel.deleteQueue(queueName);
 };
 
-export const deleteQueues = (
-  queueNames: string[]
-): void => {
+export const deleteQueues = (queueNames: string[]): void => {
   queueNames.forEach(async (queueName: string) => {
     await deleteQueue(queueName);
   });

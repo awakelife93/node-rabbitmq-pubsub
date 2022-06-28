@@ -19,8 +19,15 @@ const createSampleMessageData = async () => {
 };
 
 const resetResources = async (): Promise<void> => {
-  await deleteExchanges([config.DEAD_LETTER_EXCHANGE, config.SEND_MESSAGE_EXCHANGE]);
-  await deleteQueues([config.DEAD_LETTER_QUEUE_NAME, config.DEFAULT_QUEUE_NAME, config.EXCHANGE_SEND_MESSAGE_QUEUE_NAME]);
+  await deleteExchanges([
+    config.DEAD_LETTER_EXCHANGE,
+    config.SEND_MESSAGE_EXCHANGE,
+  ]);
+  await deleteQueues([
+    config.DEAD_LETTER_QUEUE_NAME,
+    config.DEFAULT_QUEUE_NAME,
+    config.EXCHANGE_SEND_MESSAGE_QUEUE_NAME,
+  ]);
   console.log("Delete Exchanges & Queues");
 };
 

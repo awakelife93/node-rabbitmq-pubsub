@@ -34,18 +34,14 @@ const createExchange = async (
   });
 };
 
-const deleteExchange = async (
-  exchange: string
-): Promise<Replies.Empty> => {
+const deleteExchange = async (exchange: string): Promise<Replies.Empty> => {
   return await RabbitMQChannel.deleteExchange(exchange);
 };
 
-export const deleteExchanges = (
-  exchanges: string[]
-): void => {
+export const deleteExchanges = (exchanges: string[]): void => {
   exchanges.forEach(async (exchange: string) => {
     await deleteExchange(exchange);
-  })
+  });
 };
 
 export default exchangeController;
