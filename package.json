@@ -1,5 +1,5 @@
 {
-  "name": "rabbitmq-pubsub",
+  "name": "node-rabbitmq-sample",
   "version": "1.0.0",
   "description": "",
   "scripts": {
@@ -7,11 +7,29 @@
     "dockerStart": "ts-node ./src/index.ts",
     "localStart": "export port=5000 && nodemon ./src/index.ts"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/awakelife93/node-rabbitmq-sample.git"
+  },
+  "keywords": [
+    "rabbitmq",
+    "publisher",
+    "subscribe",
+    "receiver",
+    "sender",
+    "message queue",
+    "queue",
+    "message"
+  ],
+  "author": "HyunwooPark",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/awakelife93/node-rabbitmq-sample/issues"
+  },
   "_moduleAliases": {
     "@": "src"
   },
-  "author": "",
-  "license": "ISC",
+  "homepage": "https://github.com/awakelife93/node-rabbitmq-sample#readme",
   "dependencies": {
     "amqplib": "^0.10.0",
     "dotenv": "^16.0.1",
