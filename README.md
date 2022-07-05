@@ -1,5 +1,4 @@
 # Node-RabbitMQ
-#### 개발중
 ##### Author 박현우
 ##### Create Date 2022.06.13
 #

@@ -1,32 +1,28 @@
+import CommonConstant from "@/common/constant";
 import { convertMsToSeconds } from "@/utils/convert";
 import _ from "lodash";
 import consumer from "../consumer";
 
-// todo: intervalId, time 변수들 공통 관리
-// todo: 해당 스크립트 전반적으로 분리 해낼 것
 let intervalId: NodeJS.Timer | null = null;
 const broker = async (): Promise<void> => {
   await start();
 };
 
 const start = async (): Promise<void> => {
-  const pollingTime = 3000 * 10;
-
   if (_.isNull(intervalId)) {
     await work();
 
     intervalId = setInterval(async () => {
       await work();
-    }, pollingTime);
+    }, CommonConstant.MESSAGE_PULLING_TIME);
   }
 };
 
 const work = async (): Promise<void> => {
   const { message, messageCount } = await consumer();
-  const delayTime = 6000 * 10;
 
   if (messageCount < 1) {
-    const delaySeconds = convertMsToSeconds(delayTime);
+    const delaySeconds = convertMsToSeconds(CommonConstant.DELAY_START_INTERVAL_TIME);
     console.log(
       `Message Queue has Non Message So, Set Delay ${delaySeconds} second`
     );
@@ -51,12 +47,9 @@ const restart = (): void => {
 };
 
 const delayStart = (): void => {
-  const delayTime = 6000 * 10;
-  const pollingTime = 3000 * 10;
-
   setTimeout(() => {
     restart();
-  }, delayTime - pollingTime);
+  }, CommonConstant.DELAY_START_INTERVAL_TIME - CommonConstant.MESSAGE_PULLING_TIME);
 };
 
 const sender = (message: string): void => {
