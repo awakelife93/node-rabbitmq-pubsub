@@ -22,7 +22,9 @@ const work = async (): Promise<void> => {
   const { message, messageCount } = await consumer();
 
   if (messageCount < 1) {
-    const delaySeconds = convertMsToSeconds(CommonConstant.DELAY_START_INTERVAL_TIME);
+    const delaySeconds = convertMsToSeconds(
+      CommonConstant.DELAY_START_INTERVAL_TIME
+    );
     console.log(
       `Message Queue has Non Message So, Set Delay ${delaySeconds} second`
     );
