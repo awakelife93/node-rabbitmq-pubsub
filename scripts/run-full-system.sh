@@ -1,1 +1,1 @@
-docker-compose -f ../docker-compose-full.yml up
+docker-compose -f ../docker-compose.full.system.yml up
