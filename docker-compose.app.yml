@@ -1,0 +1,22 @@
+version: "3.2"
+services:
+  app:
+    build:
+      context: ./
+      # select docker base (localhost, development, production) - default localhost
+      target: ${NODE_ENV:-localhost}
+      dockerfile: Dockerfile.app
+    volumes:
+      - .:/src
+    command: npm run dockerStart
+    environment:
+      DEAD_LETTER_EXCHANGE: ${DEAD_LETTER_EXCHANGE} # default "deadLetterExchange"
+      DEAD_LETTER_QUEUE_NAME: ${DEAD_LETTER_QUEUE_NAME} # default "deadLetterQueue"
+      DEFAULT_QUEUE_NAME: ${DEFAULT_QUEUE_NAME} # default "deleteTokens"
+      SEND_MESSAGE_EXCHANGE: ${SEND_MESSAGE_EXCHANGE} # default "sendMessageExchange"
+      EXCHANGE_SEND_MESSAGE_QUEUE_NAME: ${EXCHANGE_SEND_MESSAGE_QUEUE_NAME} # default "exchangeSendMessageQueue"
+      EXCHANGE_TYPE: ${EXCHANGE_TYPE} # default "direct"
+      RABBITMQ_URL: ${RABBITMQ_URL:-amqp://guest:guest@rabbitmq:5672} # default "amqp://guest:guest@rabbitmq:5672"
+      IS_TEST_MESSAGES: ${IS_TEST_MESSAGES} # default true
+      IS_ACK: ${IS_ACK} # default false
+      IS_RESET_RESOURCES: ${IS_RESET_RESOURCES} # default false
