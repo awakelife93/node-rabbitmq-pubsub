@@ -4,6 +4,7 @@
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "ts-node ./src/index.ts",
     "dockerStart": "ts-node ./src/index.ts",
     "localStart": "export port=5000 && nodemon ./src/index.ts"
   },
