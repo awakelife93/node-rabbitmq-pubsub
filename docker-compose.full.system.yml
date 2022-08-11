@@ -9,8 +9,6 @@ services:
     volumes:
         - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
         - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
-    networks:
-        - rabbitmq_worker
   app:
     build:
       context: ./
@@ -33,8 +31,3 @@ services:
       IS_TEST_MESSAGES: ${IS_TEST_MESSAGES} # default true
       IS_ACK: ${IS_ACK} # default false
       IS_RESET_RESOURCES: ${IS_RESET_RESOURCES} # default false
-    networks:
-      - rabbitmq_worker
-networks:
-  rabbitmq_worker:
-    driver: bridge

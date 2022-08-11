@@ -14,18 +14,19 @@ type Config = {
   IS_RESET_RESOURCES: boolean;
 };
 
+// * Because variables are injected even in the Docker environment, || is used because it is an empty string rather than undefined.
 const config: Config = {
   DEAD_LETTER_EXCHANGE:
-    process.env.DEAD_LETTER_EXCHANGE ?? "deadLetterExchange",
+    process.env.DEAD_LETTER_EXCHANGE || "deadLetterExchange",
   DEAD_LETTER_QUEUE_NAME:
-    process.env.DEAD_LETTER_QUEUE_NAME ?? "deadLetterQueue",
-  DEFAULT_QUEUE_NAME: process.env.QUEUE_NAME ?? "deleteTokens",
+    process.env.DEAD_LETTER_QUEUE_NAME || "deadLetterQueue",
+  DEFAULT_QUEUE_NAME: process.env.QUEUE_NAME || "deleteTokens",
   SEND_MESSAGE_EXCHANGE:
-    process.env.SEND_MESSAGE_EXCHANGE ?? "sendMessageExchange",
+    process.env.SEND_MESSAGE_EXCHANGE || "sendMessageExchange",
   EXCHANGE_SEND_MESSAGE_QUEUE_NAME:
-    process.env.EXCHANGE_SEND_MESSAGE_QUEUE_NAME ?? "exchangeSendMessageQueue",
-  EXCHANGE_TYPE: process.env.EXCHANGE_TYPE ?? "direct",
-  RABBITMQ_URL: process.env.RABBITMQ_URL ?? "amqp://guest:guest@rabbitmq:5672",
+    process.env.EXCHANGE_SEND_MESSAGE_QUEUE_NAME || "exchangeSendMessageQueue",
+  EXCHANGE_TYPE: process.env.EXCHANGE_TYPE || "direct",
+  RABBITMQ_URL: process.env.RABBITMQ_URL || "amqp://guest:guest@rabbitmq:5672",
   IS_TEST_MESSAGES: process.env.IS_TEST_MESSAGES
     ? process.env.IS_TEST_MESSAGES === "true"
     : true,
